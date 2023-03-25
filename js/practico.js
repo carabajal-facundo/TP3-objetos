@@ -189,3 +189,102 @@ else document.write(`El libro '${libro2.titulo}' tiene mas paguinas que '${libro
 document.write("<br><hr>");
 
 // Punto 7
+
+class Contacto{
+    #nombre;
+    #telefono;
+    constructor(nombre,telefono){
+        this.#nombre=nombre;
+        this.#telefono=telefono;
+    }
+    get nombre(){ return this.#nombre; }
+    get telefono(){ return this.#telefono; }
+    set nonmbre(newNombre){ this.#nombre=newNombre; }
+    set telefono(newTelefono){ this.#telefono=newTelefono; }
+    igualcontacto(contact){
+        if(contact==this.#nombre) return true;
+        else return false;
+    }
+}
+
+class Agenda{
+    #contactos= [];
+    #topContactos = 10;
+    constructor(topeContactos) { 
+        if(topeContactos>0){
+            this.#topContactos=topeContactos 
+        }
+    }
+
+    agregarContacto(contacto){
+        if(this.agendaLlena()) alert("La agenda esta llena");
+        else if(this.existeContacto(contacto.nombre)) alert("El contacto ya existe");
+            else this.#contactos.push(contacto);
+    }
+
+    existeContacto(contacto){
+        let existe=false;
+        for(let i of this.#contactos){
+            if(i.igualcontacto(contacto)) existe=true;
+            i++;
+        }
+        return existe;
+    }
+
+    listarContactos(){
+        document.write("<h2>Listado de los contactos en la agenda</h2>");
+        for(let i of this.#contactos){
+            document.write("Nombre: "+i.nombre+"<br>");
+            document.write("Telefono: "+i.telefono+"<br><br>");
+        }
+    }
+
+    buscarContacto(nombreContacto){
+        for(let i of this.#contactos){
+            if(i.nombre==nombreContacto) alert(`El numero del contacto ${nombreContacto} es: ${i.telefono}`);
+        }
+    }
+
+    eliminarContacto(nombre){
+        let indiceContacto=0;
+        if(this.existeContacto(nombre)){
+            for(let i=0; i<this.#contactos.length; i++ ){
+                if(this.#contactos[i]!=nombre) indiceContacto++;
+            }
+            this.#contactos.splice((indiceContacto-1),1);
+        }
+
+    }
+
+    agendaLlena(){
+        if(this.#contactos.length == this.#topContactos) return true;
+        else return false;
+    }
+
+    huecosLibres(){
+        if(this.#contactos.length==this.#topContactos) alert("No quedan huecos libres en la agenda");
+        else alert("Quedan "+(this.#topContactos - this.#contactos.length)+" huecos libres en la agenda");
+    }
+}
+
+let stop=true;
+let agendaContactos = new Agenda(prompt("Ingrese la cantidad de contactos que tendra la agenda"));
+while(stop){
+    let opcion=prompt("1. Añadidir contacto - 2. Eliminar un contacto - 3. Buscar un contacto - 4. Listar la agenda");
+    switch (parseInt(opcion)){
+        case 1:
+            let contacto = new Contacto(prompt("Nombre del contacto"),prompt("Telefono del contacto"));
+            agendaContactos.agregarContacto(contacto);
+            break;
+        case 2:
+            agendaContactos.eliminarContacto(prompt("Ingrese el nombre del contacto a eliminar"));
+            break;
+        case 3:
+            agendaContactos.buscarContacto(prompt("Ingrese el nombre del contacto que decea buscar"));
+            break;
+        case 4:
+            agendaContactos.listarContactos();
+            break;
+    }    
+    stop = confirm("Decea realizar alguna accion con la agenda?");
+}
