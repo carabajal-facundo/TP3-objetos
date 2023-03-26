@@ -189,7 +189,7 @@ else document.write(`El libro '${libro2.titulo}' tiene mas paguinas que '${libro
 document.write("<br><hr>");
 
 // Punto 7
-
+document.write("<h1>Punto7</h1>");
 class Contacto{
     #nombre;
     #telefono;
@@ -266,7 +266,7 @@ class Agenda{
         else alert("Quedan "+(this.#topContactos - this.#contactos.length)+" huecos libres en la agenda");
     }
 }
-
+/*
 let stop=true;
 let agendaContactos = new Agenda(prompt("Ingrese la cantidad de contactos que tendra la agenda"));
 while(stop){
@@ -288,3 +288,108 @@ while(stop){
     }    
     stop = confirm("Decea realizar alguna accion con la agenda?");
 }
+*/
+
+// Punto 8
+document.write("<h1>Punto8</h1>");
+class Persona1{
+    #nombre;
+    #edad;
+    #profecion;
+    constructor(nombre,edad,profecion){}
+    saludar(){document.write("hola soy "+this.#nombre+".<br>")}
+    despedirce(){document.write("bueno hora de despedirme, adios.<br>")}
+}
+
+let per1 = new Persona1("Facundo",24,"programador");
+let per2 = new Persona1("Silvio",21,"kinesiologo");
+per1.saludar();
+per1.despedirce();
+per2.saludar();
+per2.despedirce();
+document.write("<br><hr>");
+
+// Punto 9
+document.write("<h1>Punto9</h1>");
+class Animal{
+    #nombre;
+    #edad;
+    constructor(nombre,edad){
+        this.#nombre=nombre;
+        this.#edad=edad;
+    }
+    emitirSonido(){ }
+}
+
+class Perro extends Animal{
+    emitirSonido(){document.write("*Se emiten sonidos de perro*<br>")}
+}
+
+class Gato extends Animal{
+    emitirSonido(){document.write("*Se emiten sonidos de gato*<br>")}
+}
+
+let perro1 = new Perro("Ronti",4);
+let gato1 = new Gato("Paco",5);
+
+perro1.emitirSonido();
+gato1.emitirSonido();
+document.write("<br><hr>");
+
+// Punto 10
+document.write("<h1>Punto10</h1>");
+class Aeropuerto{
+    #nombreAeropuerto;
+    #aviones = [];
+    constructor(nombreAeropuerto) {this.#nombreAeropuerto=nombreAeropuerto;}
+    buscarAvion(nomAvion){
+        for(const i of this.#aviones){
+           if(i.nombre == nomAvion) i.mostrarAvion();
+        }
+    }
+    agregarAvion(avion){ this.#aviones.push(avion); }
+}
+
+class Avion{
+    #nombre;
+    #capacidad;
+    #destino;
+    #pasajeros = [];
+    constructor(nombre,capacidad,destino){
+        this.#nombre=nombre;
+        this.#capacidad=capacidad;
+        this.#destino=destino;
+    }
+    get nombre(){ return this.#nombre; }
+    abordar(nomPasajero){
+        if(this.#pasajeros.length==this.#capacidad) alert("Se alcanzo la capacidad maxima de pasajeros en el avion");
+        else this.#pasajeros.push(nomPasajero);
+    }
+    mostrarAvion(){
+        document.write(`Avion: ${this.#nombre}<br>`);
+        document.write(`Capacidad: ${this.#capacidad}<br>`);
+        document.write(`Destino: ${this.#destino}<br>`);
+        document.write(`Pasajeros: <br>`);
+        for(let i=0; i<this.#pasajeros.length; i++){
+            document.write(`-- ${this.#pasajeros[i]} -- `);
+        }
+    }
+}
+
+let Aeropuerto1 = new Aeropuerto("Aeropuerto Internacional");
+let avion1 = new Avion("Avion 1", 4, "Argentina");
+let avion2 = new Avion("Avion 2", 5, "España");
+let avion3 = new Avion("Avion 3", 2, "Canada");
+
+avion1.abordar("Alejandro");
+avion2.abordar("Esteban");
+avion3.abordar("Facundo");
+avion3.abordar("Fabricio");
+
+Aeropuerto1.agregarAvion(avion1);
+Aeropuerto1.agregarAvion(avion2);
+Aeropuerto1.agregarAvion(avion3);
+
+Aeropuerto1.buscarAvion("Avion 3");
+
+document.write("<br><hr>");
